@@ -5,6 +5,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Header from "./components/Header";
 export default async function Home() {
   interface DataType {
+    _id:string
     mainHeading: string;
     description: string;
     blogdate: number;
@@ -16,6 +17,7 @@ export default async function Home() {
     };
   }
   const query = `*[_type == "blog"]{
+  _id,
   image{
     asset->{
       url
@@ -34,12 +36,12 @@ export default async function Home() {
       <div className="bg-red-950 w-full md:h-screen p-10 ">
         <div className="bg-[#a0303094] rounded-lg w-full h-full p-0 md:p-10  md:grid md:grid-rows-5  lg:grid-cols-3  lg:grid-rows-1 gap-5 text-black md:overflow-hidden">
           <div className="row-span-5 col-span-2 flex flex-col md:grid md:grid-cols-2  gap-10 overflow-hidden">
-            {data.map((e: DataType, index: number) => {
+            {data.map((e: DataType) => {
               return (
                 <>
-                  <a key={index} href={`/${index}`}>
+                  <a key={e._id} href={`/${e._id}`}>
                     <div
-                      key={index}
+                      key={e._id}
                       className="h-[420px] bg-white w-full flex flex-col rounded-md gap-5 p-4 overflow-hidden"
                     >
                       <Image
@@ -64,13 +66,13 @@ export default async function Home() {
             })}
           </div>
           <div className="flex mt-10 flex-col md:col-span-3 md:row-span-1 md:h-40 md:overflow-y-scroll md:overflow-hidden lg:col-span-1 lg:h-[450px]  lg:flex-col w-full h-full bg-[#dfdfdf] rounded-sm gap-2  p-3">
-            {data.map((e: DataType, index: number) => {
-              console.log(index);
+            {data.map((e: DataType) => {
+              
               return (
                 <>
-                  <a key={index} href={`/${index}`}>
+                  <a key={e._id} href={`/${e._id}`}>
                     <div
-                      key={index}
+                      key={e._id}
                       className="flex bg-white w-full h-full  gap-5 p-2 overflow-hidden"
                     >
                       <Image

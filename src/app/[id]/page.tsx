@@ -6,7 +6,7 @@ import CommentsBox from "../components/CommentsBox";
 import Header from "../components/Header";
 
 interface DataType {
-   id?:string,
+   _id:string,
    mainHeading: string;
    description: string;
    blogdate: number;
@@ -26,6 +26,7 @@ export default async function Pages({
 }) {
   const { id } = params;
   const query = `*[_type == "blog"]{
+  _id,
   image{
     asset->{
       url
@@ -39,7 +40,7 @@ export default async function Pages({
   const data = await client.fetch(query);
   console.log(data);
 
-  const blogPost = data.find((post:DataType) => post.id === id)
+  const blogPost = data.find((post:DataType) => post._id === id)
 
   return (
     <>
